@@ -1,4 +1,5 @@
 import pygame
+# from Bitmap import Bitmap
 
 
 class Display:
@@ -6,6 +7,11 @@ class Display:
         self.width = width
         self.height = height
         self.title = title
+        self.displayImage = None
+        self.displayComponents = None
+        # self.frameBuffer = None
+        self.clock = pygame.time.Clock()
+        self.timedelta = 1.0
 
         # initialize pygame
         pygame.init()
@@ -14,23 +20,32 @@ class Display:
         pygame.display.set_caption(self.title)
         self.running = True
 
-    def run_engine(self):
+        # self.frameBuffer = Bitmap(self.width, self.height)
+        self.displayComponents = pygame.Surface((self.width,self.height)).get_buffer()
+        self.displayImage = pygame.image.frombuffer(self.displayComponents, (self.width,self.height), 'RGBA')
 
-        while self.running:
-            pygame.time.delay(100)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-
-            self.render()
-
-        self.clean_up()
+    def poll_events(self):
+        # poll all events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
 
     def render(self):
-        pygame.draw.rect(self.display, (255, 0, 0), (30, 40, 100, 200))
-        self.display.set_at((300, 300), (255, 0, 0))
+        self.timedelta = self.clock.tick(60) / 1000  # convert to milliseconds
+
+        # blit to surface
+        self.display.blit(self.displayImage, (0, 0))
+
         pygame.display.update()
 
     def clean_up(self):
         pygame.quit()
+
+    def get_delta(self):
+        return self.timedelta
+
+    def get_target(self):
+        return self.displayImage
+
+    def is_running(self):
+        return self.running
