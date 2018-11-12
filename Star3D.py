@@ -1,6 +1,7 @@
 import pygame
 import numpy as np
 import random
+import math
 
 
 class Star3D:
@@ -27,14 +28,16 @@ class Star3D:
         halfwidth = target.get_width()/2.0
         halfheight = target.get_height()/2.0
 
+        tanHalfFOV = math.tan(math.radians(70.0/2.0))
+
         for i in range(len(self.starX)):
             self.starZ[i] -= delta * self.speed
 
             if self.starZ[i] <= 0:
                 self.init_star(i)
 
-            x = (int)((self.starX[i]/self.starZ[i]) * halfwidth + halfwidth)
-            y = (int)((self.starY[i]/self.starZ[i]) * halfheight + halfheight)
+            x = (int)((self.starX[i]/self.starZ[i] * tanHalfFOV) * halfwidth + halfwidth)
+            y = (int)((self.starY[i]/self.starZ[i] * tanHalfFOV) * halfheight + halfheight)
 
             if (x < 0 or x >= target.get_width()) or (y < 0 or y >= target.get_height()):
                 self.init_star(i)
