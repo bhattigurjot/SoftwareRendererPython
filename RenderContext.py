@@ -35,7 +35,7 @@ class RenderContext:
         if maxYVert.get_y() < midYVert.get_y():
             maxYVert, midYVert = midYVert, maxYVert
 
-        area = minYVert.triangle_area(maxYVert, midYVert)
+        area = minYVert.triangle_area2times(maxYVert, midYVert)
         handedness = 1 if (area >= 0) else 0
 
         self.scan_convert_triangle(minYVert, midYVert, maxYVert, handedness)

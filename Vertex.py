@@ -17,7 +17,7 @@ class Vertex:
     def get_y(self):
         return self.y
 
-    def triangle_area(self, b , c):
+    def triangle_area2times(self, b , c):
         x1 = b.get_x() - self.x
         y1 = b.get_y() - self.y
 
