@@ -47,5 +47,8 @@ class Display:
     def get_target(self):
         return self.displayImage
 
+    def get_aspect_ratio(self):
+        return self.width/self.height
+
     def is_running(self):
         return self.running
