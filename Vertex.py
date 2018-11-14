@@ -8,6 +8,12 @@ class Vertex:
         else:
             self.pos = Vector4f(x, y, z, 1)
 
+    def __str__(self):
+        return "Vertex ({0}, {1}, {2})".format(self.pos.x, self.pos.y, self.pos.z)
+
+    def __repr__(self):
+        return "<Vertex: x:{0}, y:{1}, z:{2}, w:{3}>".format(self.pos.x, self.pos.y, self.pos.z, self.pos.w)
+
     def set_x(self, x):
         self.pos.x = x
 

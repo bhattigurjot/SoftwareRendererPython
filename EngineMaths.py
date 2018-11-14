@@ -9,8 +9,11 @@ class Vector4f:
         self.z = z
         self.w = w
 
-    def toString(self):
-        return "(" + str(self.x) + ", " + str(self.y) + ", " + str(self.z) + ", " + str(self.w) + ")"
+    def __str__(self):
+        return "Vector4f ({0}, {1}, {2}, {3})".format(self.x, self.y, self.z, self.w)
+
+    def __repr__(self):
+        return "<Vector4f: x:{0}, y:{1}, z:{2}, w:{3}>".format(self.x, self.y, self.z, self.w)
 
     def length(self):
         return math.sqrt(self.x*self.x + self.y*self.y + self.z*self.z + self.w*self.w)
@@ -68,6 +71,12 @@ class Vector4f:
 class Matrix4f:
     def __init__(self):
         self.m = np.zeros((4,4))
+
+    def __str__(self):
+        return "Matrix4f\n {0}".format(self.m)
+
+    def __repr__(self):
+        return "<Matrix4f\n {0}>".format(self.m)
 
     def get_matrix(self):
         return self.m
@@ -170,12 +179,18 @@ class Matrix4f:
                         self.m[3][0] * vec.x + self.m[3][1] * vec.y + self.m[3][2] * vec.z + self.m[3][3] * vec.w)
 
 
-class Quaternion:
+class Quaternion4f:
     def __init__(self, x, y, z, w):
         self.x = x
         self.y = y
         self.z = z
         self.w = w
+
+    def __str__(self):
+        return "Quaternion4f ({0}, {1}, {2}, {3})".format(self.x, self.y, self.z, self.w)
+
+    def __repr__(self):
+        return "<Quaternion4f: x:{0}, y:{1}, z:{2}, w:{3}>".format(self.x, self.y, self.z, self.w)
 
     def length(self):
         return math.sqrt(self.x * self.x + self.y * self.y + self.z * self.z + self.w * self.w)
