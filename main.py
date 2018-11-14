@@ -5,6 +5,7 @@ from Star3D import Star3D
 from RenderContext import RenderContext
 from Vertex import Vertex
 
+
 def main():
     display = Display(600, 400, "Software Renderer")
     stars = Star3D(1000, 64.0, 20.0)

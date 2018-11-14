@@ -31,7 +31,7 @@ class Vector4f:
         # return self.cross()
 
     def equals(self, other):
-        return self.x == other.x && self.y == other.y && self.z == other.z && self.w == other.w
+        return self.x == other.x and self.y == other.y and self.z == other.z and self.w == other.w
 
     def add(self, other):
         if other is float:
