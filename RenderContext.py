@@ -2,12 +2,15 @@ import numpy as np
 import pygame
 
 from Vertex import Vertex
+from Matrix4f import Matrix4f
 
 
 class RenderContext:
     def __init__(self, texture, width, height):
         self.scanBuffer = np.zeros(height*2)
         self.texture = texture
+        self.width = width
+        self.height = height
 
     def draw_scanbuffer(self, yCoordinate, xMin, xMax):
         self.scanBuffer[yCoordinate*2] = xMin
@@ -22,9 +25,10 @@ class RenderContext:
                 self.texture.set_at((i,j), pygame.Color(255,255,255))
 
     def fill_triangle(self, v1, v2, v3):
-        minYVert = v1
-        midYVert = v2
-        maxYVert = v3
+        screenspace_transform_mat = Matrix4f().init_screenspace_transform(self.width/2,self.height/2)
+        minYVert = v1.transform(screenspace_transform_mat).perspective_divide()
+        midYVert = v2.transform(screenspace_transform_mat).perspective_divide()
+        maxYVert = v3.transform(screenspace_transform_mat).perspective_divide()
 
         if maxYVert.get_y() < midYVert.get_y():
             maxYVert, midYVert = midYVert, maxYVert
@@ -39,7 +43,7 @@ class RenderContext:
         handedness = 1 if (area >= 0) else 0
 
         self.scan_convert_triangle(minYVert, midYVert, maxYVert, handedness)
-        self.fill_shape(100, 300)
+        self.fill_shape((int)(minYVert.get_y()), (int)(maxYVert.get_y()))
 
     def scan_convert_triangle(self, minYVert, midYVert, maxYVert, handedness):
         self.scan_convert_line(minYVert, maxYVert, 0 + handedness)
