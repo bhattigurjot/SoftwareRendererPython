@@ -15,13 +15,13 @@ class Vector4f:
         length = self.length()
         return Vector4f(self.x/length, self.y/length, self.z/length, self.w/length)
 
-    def dot_product(self, other):
-        return self.x*other.x + self.y*other.y + self.z*other.z + self.w*other.w
+    def dot_product(self, vec):
+        return self.x*vec.x + self.y*vec.y + self.z*vec.z + self.w*vec.w
 
-    def cross_product(self, other):
-        _x = self.y*other.z - self.z*other.y
-        _y = self.z*other.x - self.x*other.z
-        _z = self.x*other.y - self.y*other.x
+    def cross_product(self, vec):
+        _x = self.y*vec.z - self.z*vec.y
+        _y = self.z*vec.x - self.x*vec.z
+        _z = self.x*vec.y - self.y*vec.x
         return Vector4f(_x,_y,_z,0)
 
     def rotate(self, angle):
@@ -30,8 +30,8 @@ class Vector4f:
 
         # return self.cross()
 
-    def equals(self, other):
-        return self.x == other.x and self.y == other.y and self.z == other.z and self.w == other.w
+    def equals(self, vec):
+        return self.x == vec.x and self.y == vec.y and self.z == vec.z and self.w == vec.w
 
     def add(self, other):
         if other is float:
