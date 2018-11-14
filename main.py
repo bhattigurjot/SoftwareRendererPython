@@ -19,7 +19,9 @@ def main():
     maxYVert = Vertex(1,-1,0)
 
     # projection matrix
-    projection = Matrix4f().init_perspective(math.radians(70.0), display.get_aspect_ratio(), 0.1, 1000.0)
+    projection = Matrix4f().init_perspective(math.radians(70.0),
+                                             display.get_aspect_ratio(),
+                                             0.1, 1000.0)
 
     rotCounter = 0.0
 
