@@ -20,6 +20,9 @@ class Vertex:
     def get_y(self):
         return self.pos.y
 
+    def transform(self, mat):
+        return Vertex(mat.transform(self.pos))
+
     def triangle_area2times(self, b, c):
         x1 = b.get_x() - self.pos.x
         y1 = b.get_y() - self.pos.y
