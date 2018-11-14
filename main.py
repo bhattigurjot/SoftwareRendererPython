@@ -30,7 +30,7 @@ def main():
         rotCounter += display.get_delta()
         translation = Matrix4f().init_translation(0.0, 0.0, 3.0)
         rotation = Matrix4f().init_rotation(0.0, rotCounter, 0.0)
-        finalTransform = projection.matrix_mul(translation.matrix_mul(rotation))
+        finalTransform = projection * translation * rotation
 
         # Clear screen to black
         display.get_target().fill((0,0,0))

@@ -4,10 +4,10 @@ import numpy as np
 
 class Vector4f:
     def __init__(self, x, y, z, w=1.0):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.w = w
+        self.x = float(x)
+        self.y = float(y)
+        self.z = float(z)
+        self.w = float(w)
 
     def __str__(self):
         return "Vector4f ({0}, {1}, {2}, {3})".format(self.x, self.y, self.z, self.w)
@@ -40,27 +40,27 @@ class Vector4f:
     def equals(self, vec):
         return self.x == vec.x and self.y == vec.y and self.z == vec.z and self.w == vec.w
 
-    def add(self, other):
-        if other is float:
-            return self.x + other, self.y + other, self.z + other, self.w + other
+    def __add__(self, other):
+        if isinstance(other, (int, float)):
+            return Vector4f(self.x + other, self.y + other, self.z + other, self.w + other)
         else:
             return Vector4f(self.x + other.x, self.y + other.y, self.z + other.z, self.w + other.w)
 
-    def sub(self, other):
-        if other is float:
-            return self.x - other, self.y - other, self.z - other, self.w - other
+    def __sub__(self, other):
+        if isinstance(other, (int, float)):
+            return Vector4f(self.x - other, self.y - other, self.z - other, self.w - other)
         else:
             return Vector4f(self.x - other.x, self.y - other.y, self.z - other.z, self.w - other.w)
 
-    def mul(self, other):
-        if other is float:
-            return self.x * other, self.y * other, self.z * other, self.w * other
+    def __mul__(self, other):
+        if isinstance(other, (int, float)):
+            return Vector4f(self.x * other, self.y * other, self.z * other, self.w * other)
         else:
             return Vector4f(self.x * other.x, self.y * other.y, self.z * other.z, self.w * other.w)
 
-    def div(self, other):
-        if other is float:
-            return self.x / other, self.y / other, self.z / other, self.w / other
+    def __truediv__(self, other):
+        if isinstance(other, (int, float)):
+            return Vector4f(self.x / other, self.y / other, self.z / other, self.w / other)
         else:
             return Vector4f(self.x / other.x, self.y / other.y, self.z / other.z, self.w / other.w)
 
@@ -142,7 +142,7 @@ class Matrix4f:
         ry.m[2][2] = math.cos(x)
         ry.m[3][3] = 1
 
-        self.m = rz.matrix_mul(ry.matrix_mul(rx)).get_matrix()
+        self.m = (rz * (ry * rx)).get_matrix()
 
         return self
 
@@ -158,7 +158,7 @@ class Matrix4f:
 
         return self
 
-    def matrix_mul(self, mat):
+    def __mul__(self, mat):
         res = Matrix4f()
 
         for i in range(0,4):
@@ -181,10 +181,10 @@ class Matrix4f:
 
 class Quaternion4f:
     def __init__(self, x, y, z, w):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.w = w
+        self.x = float(x)
+        self.y = float(y)
+        self.z = float(z)
+        self.w = float(w)
 
     def __str__(self):
         return "Quaternion4f ({0}, {1}, {2}, {3})".format(self.x, self.y, self.z, self.w)
@@ -197,7 +197,7 @@ class Quaternion4f:
 
     def normalized(self):
         length = self.length()
-        return Quaternion(self.x/length, self.y/length, self.z/length, self.w/length)
+        return Quaternion4f(self.x/length, self.y/length, self.z/length, self.w/length)
 
     def normalize_this(self):
         length = self.length()
@@ -208,18 +208,18 @@ class Quaternion4f:
         return self
 
     def conjugate(self):
-        return Quaternion(-self.x, -self.y, -self.z, -self.w)
+        return Quaternion4f(-self.x, -self.y, -self.z, -self.w)
 
     def mul(self, other):
-        if other is Quaternion:
+        if other is Quaternion4f:
             _w = self.w*other.w - self.x*other.x - self.y*other.y - self.z*other.z
             _x = self.x*other.w + self.w*other.x + self.y*other.z - self.z*other.y
             _y = self.y*other.w + self.w*other.y + self.z*other.x - self.x*other.z
             _z = self.z*other.w + self.w*other.z + self.x*other.y - self.y*other.x
-            return Quaternion(_x, _y, _z, _w)
+            return Quaternion4f(_x, _y, _z, _w)
         if other is Vector4f:
             _w = -self.x * other.x - self.y * other.y - self.z * other.z
             _x = self.w * other.x + self.y * other.z - self.z * other.y
             _y = self.w * other.y + self.z * other.x - self.x * other.z
             _z = self.w * other.z + self.x * other.y - self.y * other.x
-            return Quaternion(_x, _y, _z, _w)
+            return Quaternion4f(_x, _y, _z, _w)
