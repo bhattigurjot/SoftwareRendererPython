@@ -4,7 +4,7 @@ from Display import Display
 from Star3D import Star3D
 from RenderContext import RenderContext
 from Vertex import Vertex
-from Matrix4f import Matrix4f
+from EngineMaths import Matrix4f
 
 import math
 
