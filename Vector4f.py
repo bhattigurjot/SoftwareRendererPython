@@ -8,6 +8,9 @@ class Vector4f:
         self.z = z
         self.w = w
 
+    def toString(self):
+        return "(" + str(self.x) + ", " + str(self.y) + ", " + str(self.z) + ", " + str(self.w) + ")"
+
     def length(self):
         return math.sqrt(self.x*self.x + self.y*self.y + self.z*self.z + self.w*self.w)
 
