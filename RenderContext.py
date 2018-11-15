@@ -1,4 +1,5 @@
 import numpy as np
+import math
 import pygame
 
 from Vertex import Vertex
@@ -43,7 +44,8 @@ class RenderContext:
         handedness = 1 if (area >= 0) else 0
 
         self.scan_convert_triangle(minYVert, midYVert, maxYVert, handedness)
-        self.fill_shape((int)(minYVert.get_y()), (int)(maxYVert.get_y()))
+        self.fill_shape((int)(math.ceil(minYVert.get_y())),
+                        (int)(math.ceil(maxYVert.get_y())))
 
     def scan_convert_triangle(self, minYVert, midYVert, maxYVert, handedness):
         self.scan_convert_line(minYVert, maxYVert, 0 + handedness)
@@ -51,20 +53,21 @@ class RenderContext:
         self.scan_convert_line(midYVert, maxYVert, 1 - handedness)
 
     def scan_convert_line(self, minYVert, maxYVert, whichSide):
-        yStart = (int)(minYVert.get_y())
-        yEnd = (int)(maxYVert.get_y())
-        xStart = (int)(minYVert.get_x())
-        xEnd = (int)(maxYVert.get_x())
+        yStart = math.ceil(minYVert.get_y())
+        yEnd = math.ceil(maxYVert.get_y())
+        xStart = math.ceil(minYVert.get_x())
+        xEnd = math.ceil(maxYVert.get_x())
 
         yDist = yEnd - yStart
         xDist = xEnd - xStart
 
-        if yDist <= 0:
+        if yDist <= 0.0:
             return 0
 
         xStep = xDist/yDist
-        currX = xStart
+        yPreStep = yStart - minYVert.get_y()
+        currX = xStart + yPreStep * xStep
 
         for j in range(yStart, yEnd):
-            self.scanBuffer[j*2 + whichSide] = (int)(currX)
+            self.scanBuffer[j*2 + whichSide] = (int)(math.ceil(currX))
             currX += xStep

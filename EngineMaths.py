@@ -230,6 +230,7 @@ class Matrix4f:
             raise TypeError("The argument must be {0} type, found it to be "
                             "of type {1}".format(Vector4f.__name__, type(vec)))
 
+
 class Quaternion4f:
     def __init__(self, x, y, z, w):
         self.x = float(x)
