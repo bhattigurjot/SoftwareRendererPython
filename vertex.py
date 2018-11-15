@@ -1,4 +1,4 @@
-from EngineMaths import Vector4f
+from enginemaths import Vector4f
 
 
 class Vertex:

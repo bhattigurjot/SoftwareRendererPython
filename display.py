@@ -1,5 +1,5 @@
 import pygame
-# from Bitmap import Bitmap
+# from bitmap import Bitmap
 
 
 class Display:

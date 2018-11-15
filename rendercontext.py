@@ -2,9 +2,9 @@ import numpy as np
 import math
 import pygame
 
-from Vertex import Vertex
-from Edge import Edge
-from EngineMaths import Matrix4f
+from vertex import Vertex
+from edge import Edge
+from enginemaths import Matrix4f
 
 
 class RenderContext:

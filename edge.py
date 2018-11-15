@@ -1,5 +1,6 @@
 import math
 
+
 class Edge:
     def __init__(self, minYVert, maxYVert):
         self.yStart = int(math.ceil(minYVert.get_y()))

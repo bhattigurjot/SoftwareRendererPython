@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-from Display import Display
-from Star3D import Star3D
-from RenderContext import RenderContext
-from Vertex import Vertex
-from EngineMaths import Matrix4f
+from display import Display
+from star3d import Star3D
+from rendercontext import RenderContext
+from vertex import Vertex
+from enginemaths import Matrix4f
 
 import math
 
